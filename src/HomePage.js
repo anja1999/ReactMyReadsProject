@@ -1,6 +1,7 @@
 import React, {Component} from 'react';
 import BookShelf from './BookShelf';
-import { Link } from 'react-router-dom'
+import { Link } from 'react-router-dom';
+import PropTypes from 'prop-types';
 
 class HomePage extends Component {
   render(){
@@ -26,4 +27,9 @@ class HomePage extends Component {
   }
 }
 
+HomePage.PropTypes={
+  shelfs: PropTypes.array.isRequired,
+  books: PropTypes.array.isRequired,
+  moveBook:PropTypes.func.isRequired
+}
 export default HomePage

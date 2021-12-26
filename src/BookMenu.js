@@ -1,4 +1,5 @@
 import React, {Component} from 'react';
+import PropTypes from 'prop-types';
 
 class BookMenu extends Component{
   
@@ -21,4 +22,10 @@ render(){
 	}
 }
 
+
+BookMenu.PropTypes={
+  onMoveShelf : PropTypes.func.isRequired,
+  currentShelf: PropTypes.object.isRequired,
+  shelfs : PropTypes.array.isRequired,
+}
 export default BookMenu 
