@@ -9,30 +9,49 @@ class Search extends Component {
     booksResult:[]
   }
   
+  addDefaultShelf=(book)=>{
+    const existingBooks = this.props.existingBooks;
+    if(!book.hasOwnProperty('imageLinks')){
+      book.imageLinks={smallThumbnail:''}      
+    }
+	if(existingBooks.some(b => b.id === book.id)){
+      const existingBook = existingBooks.filter(b=>b.id===book.id);
+      book.shelf = existingBook[0].shelf
+    }
+    else{
+    	book.shelf='none'      
+    }
+  }
+  
   handleChange=(searchQuery)=>{
+    console.log(searchQuery);
     if(searchQuery !== ''){
-      BooksAPI.search(searchQuery.toLowerCase(), 2)
+      BooksAPI.search(searchQuery.toLowerCase(), 20)
       .then((booksResult)=>{  
-        console.log(!booksResult.length);
         if(!booksResult.length) {
           this.setState(()=>({booksResult:[]}));        
           return;
         }
-        
+       booksResult.forEach(this.addDefaultShelf);
        this.setState(()=>({
      	booksResult      
       }));        
     })
   	}
+    else{
+       this.setState(()=>({booksResult:[]}));     
+    }
   }
 
-addBook=(book)=>{
-  console.log('book to add ', book);
-}
+  moveBook=(book, shelf)=>{
+    book.shelf = shelf
+    this.props.moveBook(book, shelf);
+  }
+  
   render(){
-  const {shelfs} = this.props
+  const {shelfs, moveBook, existingBooks} = this.props
   const foundBooks =  this.state.booksResult;
-    
+  this.state.booksResult.forEach(this.addDefaultShelf);  
     return(
         <div className="search-books">
             <div className="search-books-bar">
@@ -55,7 +74,7 @@ addBook=(book)=>{
             <div className="search-books-results">
               <ol className="books-grid">
                    { foundBooks.map((book)=>(
-                        <Book key={book.id} book={book} shelfs={shelfs} moveBook={(book)=>this.addBook(book)}/>
+                        <Book key={book.id} book={book} shelfs={shelfs} moveBook={moveBook}/>
                         ))}
 			  </ol>
             </div>

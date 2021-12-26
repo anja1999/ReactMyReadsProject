@@ -51,6 +51,13 @@ class BooksApp extends Component {
       }      
     })
   }  
+  
+  onAddToShelf=(book)=>{
+    console.log('book to add ', book);
+    this.setState((currentState)=>({
+     	books:currentState.books.concat([book])
+      }))
+  }
 
   render() {
     return (
@@ -65,7 +72,7 @@ class BooksApp extends Component {
 				<Route 
 					extact path='/search' 
 					element={
-              			<Search shelfs={shelfs}/> 
+              			<Search shelfs={shelfs} moveBook={this.onUpdateBookShelf} existingBooks={this.state.books}/> 
                  }/>
       </Routes>        
       </div>

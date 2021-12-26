@@ -4,7 +4,7 @@ class BookMenu extends Component{
   
 handleChange = (e) => {
     const shelfToMove = e.target.value;
-    if(shelfToMove !== this.props.currentShelf){
+    if(shelfToMove !== this.props.currentShelf && shelfToMove !== 'none'){
       this.props.onMoveShelf(shelfToMove);
     }    
   }
