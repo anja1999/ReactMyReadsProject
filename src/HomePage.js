@@ -27,9 +27,10 @@ class HomePage extends Component {
   }
 }
 
-HomePage.PropTypes={
+HomePage.propTypes={
   shelfs: PropTypes.array.isRequired,
   books: PropTypes.array.isRequired,
-  moveBook:PropTypes.func.isRequired
+  moveBook: PropTypes.func.isRequired
 }
+
 export default HomePage

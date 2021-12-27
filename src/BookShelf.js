@@ -26,7 +26,7 @@ render (){
   }
 }
 
-BookShelf.PropTypes ={
+BookShelf.propTypes ={
 	shelfs : PropTypes.array.isRequired,
   	books:PropTypes.array.isRequired,
 	moveBook : PropTypes.func.isRequired,

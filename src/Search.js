@@ -4,11 +4,21 @@ import { Link } from 'react-router-dom';
 import * as BooksAPI from './BooksAPI';
 import Book from './Book';
 import PropTypes from 'prop-types';
+import debounce from 'lodash.debounce';
 
 class Search extends Component {
-  state={
+   constructor(props) {
+    super(props);
+    this.state={
     booksResult:[]
   }
+    this.emitChangeDebounced = debounce(this.emitChange, 400);
+  }
+  
+ componentWillUnmount() {
+    this.emitChangeDebounced.cancel();
+  }
+
   
   addDefaultShelf=(book)=>{
     const existingBooks = this.props.existingBooks;
@@ -25,8 +35,11 @@ class Search extends Component {
   }
   
   handleChange=(searchQuery)=>{
-    console.log(searchQuery);
-    if(searchQuery !== ''){
+    this.emitChangeDebounced(searchQuery);  
+  }
+  
+   emitChange(searchQuery) {
+      if(searchQuery !== ''){
       BooksAPI.search(searchQuery.toLowerCase(), 20)
       .then((booksResult)=>{  
         if(!booksResult.length) {
@@ -77,7 +90,7 @@ class Search extends Component {
   }
 }
 
-Search.PropTypes={
+Search.propTypes={
   shelfs: PropTypes.array.isRequired,
   existingBooks: PropTypes.array.isRequired,
   moveBook:PropTypes.func.isRequired

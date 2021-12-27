@@ -44,11 +44,8 @@ class BooksApp extends Component {
 
   onUpdateBookShelf=(book, shelf)=>{
     BooksAPI.update(book,shelf)
-    .then((updatedShelfs)=>{
-      let updatedBookShelf = updatedShelfs[shelf];
-      if(updatedBookShelf.includes(book.id)){
-      this.getAllBooks();     
-      }      
+    .then((updatedShelfs)=>{ 
+      this.getAllBooks();
     })
   }  
   

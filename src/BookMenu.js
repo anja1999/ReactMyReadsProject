@@ -5,7 +5,7 @@ class BookMenu extends Component{
   
 handleChange = (e) => {
     const shelfToMove = e.target.value;
-    if(shelfToMove !== this.props.currentShelf && shelfToMove !== 'none'){
+    if(shelfToMove !== this.props.currentShelf ){
       this.props.onMoveShelf(shelfToMove);
     }    
   }
@@ -23,9 +23,9 @@ render(){
 }
 
 
-BookMenu.PropTypes={
+BookMenu.propTypes={
   onMoveShelf : PropTypes.func.isRequired,
-  currentShelf: PropTypes.object.isRequired,
+  currentShelf: PropTypes.string.isRequired,
   shelfs : PropTypes.array.isRequired,
 }
 export default BookMenu 

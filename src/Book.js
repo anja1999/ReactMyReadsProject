@@ -10,6 +10,7 @@ moveToShelf = (shelf, book)=>{
   
 render(){
   const {book, shelfs} = this.props;  
+  const authors= book.authors && book.authors.join(', ')
   return (
     <li key={book.id}>
     	<div className="book">
@@ -21,14 +22,14 @@ render(){
               	onMoveShelf={(shelf)=>{this.moveToShelf(shelf, book)}}/>
               </div>
               <div className="book-title">{book.title}</div>
-              <div className="book-authors">{book.authors}</div>
+              <div className="book-authors">{authors}</div>
 		</div>
       </li>
   );
 };
 }
 
-Book.PropTypes ={
+Book.propTypes ={
 	shelfs : PropTypes.array.isRequired,
 	moveBook : PropTypes.func.isRequired,
 	book : PropTypes.object.isRequired
